@@ -3,25 +3,30 @@ project(client-server LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# GoogleTest requires at least C++14
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+#include <gtest/gtest.h>
+
+// Demonstrate some basic assertions.
+TEST(HelloTest, BasicAssertions) {
+  // Expect two strings not to be equal.
+  EXPECT_STRNE("hello", "world");
+  // Expect equality.
+  EXPECT_EQ(7 * 6, 42);
+}
+
+enable_testing()
+
 # Find protobuf package
 find_package(Protobuf REQUIRED)
-
-# WHOLE SECTION EXEMPLIFIES BAD PRACTICE!
-# set(PROTOBUF_PROTO_DIR ${CMAKE_SOURCE_DIR}/proto)
-# # Define path variables DONT
-# set(PROTO_SRCS
-#     ${PROTOBUF_PROTO_DIR}/christine/christine.pb.cc
-#     ${PROTOBUF_PROTO_DIR}/hytech/hytech.pb.cc
-# )
-# set(PROTO_HDRS
-#     ${PROTOBUF_PROTO_DIR}/christine/christine.pb.h
-#     ${PROTOBUF_PROTO_DIR}/hytech/hytech.pb.h
-# )
-# Include directories DONT
-# include_directories(${PROTOBUF_INCLUDE_DIRS})
-# include_directories(${PROTOBUF_PROTO_DIR})
-# include_directories(include)
-
 
 add_library(server_driver src/server_driver.cpp)
 add_library(client_driver src/client_driver.cpp )
@@ -63,3 +68,12 @@ target_link_libraries(client client_driver)
 
 #install targets!!
 install(TARGETS server client DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
+
+
+target_link_libraries(
+  client
+  GTest::gtest_main
+)
+include(GoogleTest)
+gtest_discover_tests(client)
