@@ -8,7 +8,7 @@ int main() {
     Client client("127.0.0.1", 8080); // Replace with the server's IP address AKA the car
 
     // Create and send a message with the input '1'
-    christine::Client message;
+    christine::Client message; 
     message.set_sender_name("Christine");
     message.set_message("Hello from the CHRISTINE!");
     
