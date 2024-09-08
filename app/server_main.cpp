@@ -4,11 +4,7 @@
 #include "server_driver.h"
 #include <iostream>
 
-/**
- * @brief Executable that initiates Server
- * 
- * This files boots up the Server
- */
+/// @brief Main function to execute server
 int main() {
     // Initiate Server
     Server server("0.0.0.0", 8080);

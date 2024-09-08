@@ -7,11 +7,9 @@
 #include "christine.pb.h"
 #include "hytech.pb.h"
 
-/**
- * @brief Class Server
- * 
- * Set up socket
- */
+/// @brief Server initator
+/// @param server_ip ip of server
+/// @param server_port port of server
 Server::Server(const std::string& server_ip, uint16_t server_port) {
     _sock = socket(AF_INET, SOCK_DGRAM, 0);
     if (_sock < 0) {
@@ -31,15 +29,14 @@ Server::Server(const std::string& server_ip, uint16_t server_port) {
     }
 }
 
+/// @brief Socket close
 Server::~Server() {
     close(_sock);
 }
 
-/**
- * @brief Class Server
- * 
- * Sends response message to client
- */
+/// @brief Function to send message
+/// @param message message that is sent 
+/// @return boolean that indicates message sent
 bool Server::SendMessage(const hytech::Server& message) {
 
     std::string serialized_message;
@@ -55,11 +52,9 @@ bool Server::SendMessage(const hytech::Server& message) {
     return true;
 }
 
-/**
- * @brief Class Server
- * 
- * Receives message from client
- */
+/// @brief Function to receive message
+/// @param message message that is received 
+/// @return boolean that indicates message received
 bool Server::ReceiveMessage(christine::Client& message) {
     char buffer[_BUFFER_SIZE];
     socklen_t _client_addr_len = sizeof(_client_addr);

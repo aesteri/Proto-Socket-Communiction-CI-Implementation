@@ -1,18 +1,13 @@
-// Client.cpp
 #include "client_driver.h"
 #include <google/protobuf/message.h>
 #include <iostream>
 #include <cstring> // For memset
 
-// FIX
 #include "christine.pb.h"
 #include "hytech.pb.h"
-
-/**
- * @brief Class Client
- * 
- * Set up socket
- */
+/// @brief Create a Client
+/// @param server_ip ip of server
+/// @param server_port port of server
 Client::Client(const std::string& server_ip, uint16_t server_port) {
     // Create socket
     _sockfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -27,15 +22,14 @@ Client::Client(const std::string& server_ip, uint16_t server_port) {
     _server_addr.sin_port = htons(server_port);
     inet_pton(AF_INET, server_ip.c_str(), &_server_addr.sin_addr);
 }
-
+/// @brief Function to close socket
 Client::~Client() {
     close(_sockfd);
 }
-/**
- * @brief Class Client
- * 
- * sends message to the server
- */
+
+/// @brief Function to send message to server
+/// @param message message that is sent
+/// @return indication if message is sent
 bool Client::SendMessage(const christine::Client& message) {
     std::string serialized_message;
     if (!message.SerializeToString(&serialized_message)) {
@@ -50,11 +44,10 @@ bool Client::SendMessage(const christine::Client& message) {
     }
     return true;
 }
-/**
- * @brief Class Client
- * 
- * sends response to the server
- */
+
+/// @brief Function to receive message
+/// @param message mmessage received
+/// @return Indicates if messaeg is received
 bool Client::ReceiveMessage(hytech::Server& message) {
     char buffer[_BUFFER_SIZE];
     sockaddr_in from_addr;

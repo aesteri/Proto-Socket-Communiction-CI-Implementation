@@ -1,14 +1,8 @@
-// FIX
-
 #include "client_driver.h" // Update include path
 #include "server_driver.h"
 #include <iostream>
 
-/**
- * @brief Executable that initiates Client
- * 
- * This files boots up the Client
- */
+/// @brief Main function to execute client
 int main() {
     // Initialize the client with server IP and port
     Client client("127.0.0.1", 8080); // Replace with the server's IP address AKA the car

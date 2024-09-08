@@ -6,14 +6,10 @@
 #include <sys/socket.h> // For socket functions
 #include <unistd.h>     // For close
 
-// FIX
+
 #include "christine.pb.h"
 #include "hytech.pb.h"
-/**
- * @brief Class Server
- * 
- * Header file for the server driver
- */
+/// @brief Class description of Server
 class Server {
 public:
     Server(const std::string& server_ip, uint16_t server_port);

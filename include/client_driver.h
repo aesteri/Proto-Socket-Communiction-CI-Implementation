@@ -5,16 +5,10 @@
 #include <arpa/inet.h>  // For sockaddr_in
 #include <sys/socket.h> // For socket functions
 #include <unistd.h>     // For close
-
-// FIX
 #include "christine.pb.h"
 #include "hytech.pb.h"
 
-/**
- * @brief Class Client
- * 
- * Header file for the client driver
- */
+/// @brief Class description of client
 class Client {
 public:
     Client(const std::string& server_ip, uint16_t server_port);
